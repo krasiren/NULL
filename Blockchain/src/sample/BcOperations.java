@@ -112,4 +112,42 @@ public class BcOperations {
         return sb.toString();
     }
 
+    //looks up data in a specific transaction and returns it in hex value
+    public static String decodeData(String hash) {
+        String[] args= {bitcoinDir, startCommand, "decoderawtransaction", hash};
+        String transaction = "";
+        try {
+            Process p = Runtime.getRuntime().exec(args);
+            p.waitFor();
+            BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            String line = null;
+            while ((line = br.readLine()) != null) {
+                transaction += line;
+            }
+
+            int ix = transaction.indexOf("\"0 OP_RETURN");
+            int ex = ix + 1;
+            while (transaction.charAt(ex) != '"') {
+                ex++;
+            }
+
+            return transaction.substring(ix + 13, ex);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    //ime pove kaj dela bruvkek
+    public static String hexToString(String hex) {
+        if (hex == null) return null;
+        StringBuilder output = new StringBuilder("");
+
+        for (int i = 0; i < hex.length(); i += 2) {
+            String str = hex.substring(i, i + 2);
+            output.append((char) Integer.parseInt(str, 16));
+        }
+
+        return output.toString();
+    }
 }
