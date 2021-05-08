@@ -18,10 +18,8 @@ public class Main {
             while ((line = reader.readLine())!= null) {
                 output.append(line + "\n");
             }
-        } catch (IOException e) {
-
-        } catch (InterruptedException c) {
-
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         System.out.println(output);
     }
