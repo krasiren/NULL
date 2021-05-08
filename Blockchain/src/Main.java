@@ -14,8 +14,10 @@ public class Main {
         System.out.println(createBlock("4545755667"));
     }
 
+    //returns null if something goes oopsie or if String arg is not hexadecimal or not divisible by 2
+    //else creates a new block with String arg data and returns its hash
     public static String createBlock (String niz) {
-        //if (!(checkIfHex(niz))) return;
+        if (!(checkIfHex(niz))) return null;
         Process p;
         String hash = "";
         String[] args = {bitcoinDir, startCommand, "createrawtransaction", "[]", "{\"data\":\"" + niz +"\"}"};
@@ -89,6 +91,17 @@ public class Main {
         return null;
     }
 
+    //preveri ali je string hex in divisible by 2
+    private static boolean checkIfHex(String s) {
+        if ( s.length() == 0 ||
+                (s.charAt(0) != '-' && Character.digit(s.charAt(0), 16) == -1))
+            return false;
+        if (s.length() % 2 != 0) return false;
 
+        for ( int i = 1 ; i < s.length() ; i++ )
+            if ( Character.digit(s.charAt(i), 16) == -1 )
+                return false;
+        return true;
+    }
 
 }
