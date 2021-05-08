@@ -4,15 +4,11 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.ArrayList;
 
-public class Main {
+public class BcOperations {
 
     //Change this to your directory of bitcoin-cli location
     private static String bitcoinDir = "/home/krasiren/Downloads/bitcoinSv_1.0.7/bin/bitcoin-cli";
     private static String startCommand = "-datadir=/home/krasiren/Downloads/bitcoinSv_1.0.7/data";
-
-    public static void main(String[] args) {
-        System.out.println(createBlock("4545755667"));
-    }
 
     //returns null if something goes oopsie or if String arg is not hexadecimal or not divisible by 2
     //else creates a new block with String arg data and returns its hash
