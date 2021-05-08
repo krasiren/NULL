@@ -260,6 +260,23 @@ public class BitcoinController implements Initializable {
     public void CheckCvs() {
         if(!tabe_pane.getSelectionModel().isSelected(4))
             return;
-        check_field.setText("Calculating");
+        check_field.setText("Calculating\n");
+        try {
+            BufferedReader csv = new BufferedReader(new FileReader("./timestamp.csv"));
+            String row;
+
+            while ((row = csv.readLine()) != null) {
+                String[] data = row.split(",");
+                String info = data[0]+","+data[1]+","+data[2]+","+data[3];
+                if (!info.equals(BcOperations.hexToString(BcOperations.decodeData(data[4])))) {
+                    check_field.setText(check_field.getText()+info+" Podatki se ne ujemajo z hashom...\n");
+
+                }
+
+            }
+            csv.close();
+        }catch(Exception e){
+            System.out.println(e);
+        }
     }
 }
