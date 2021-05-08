@@ -1,6 +1,7 @@
 package sample;
 
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
@@ -31,6 +32,8 @@ public class BitcoinController implements Initializable {
     public TextField new_pay;
     public Spinner paid_m;
     public Spinner paid_y;
+    public TabPane tabe_pane;
+    public TextArea check_field;
     ArrayList users;
     ArrayList pay;
     @Override
@@ -64,6 +67,7 @@ public class BitcoinController implements Initializable {
         paid_m.valueProperty().addListener(observable -> displayDebt());
         paid_y.valueProperty().addListener(observable -> displayDebt());
 
+        tabe_pane.getSelectionModel().selectedIndexProperty().addListener(observable -> CheckCvs());
         CalcHours();
     }
 
@@ -99,6 +103,7 @@ public class BitcoinController implements Initializable {
         String user = paid_user.getValue().toString();
         String month = paid_m.getValue().toString();
         String year = paid_y.getValue().toString();
+        float postavka = Float.parseFloat((String) pay.get(users.indexOf(user)));
         float sum=0;
 
         try {
@@ -107,8 +112,14 @@ public class BitcoinController implements Initializable {
 
             while ((row = csv.readLine()) != null) {
                 String[] data = row.split(",");
+                System.out.println(data[1].split("-")[1]);
                 if( data[0].equals(user) && data[1].split("-")[0].equals(year) && Integer.parseInt(data[1].split("-")[1])==Integer.parseInt(month)) {
-                    sum+=Float.parseFloat(data[2]);
+                    float ure = Float.parseFloat(data[2]);
+                    if (data[3].equals("free")) {
+                        ure = (float) (ure * 1.5);
+                    }
+                    ure=ure*postavka;
+                    sum+=ure;
                 }
             }
             csv.close();
@@ -136,6 +147,25 @@ public class BitcoinController implements Initializable {
         String user = work_user.getValue().toString();
         LocalDate date = work_date.getValue();
         String ure = work_hours.getText();
+        try {
+            BufferedReader csv = new BufferedReader(new FileReader("./timestamp.csv"));
+            String row;
+
+            while ((row = csv.readLine()) != null) {
+                String[] data = row.split(",");
+                if (data[0].equals(user) && data[1].equals(date.toString())) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setContentText("Duplicate entry!");
+                    return;
+                    }
+
+                }
+            csv.close();
+        }catch(Exception e){
+            System.out.println(e);
+        }
+
         String hash = BcOperations.createBlock(BcOperations.toHex(user+","+date+","+ure+","+day));
         String data = user+","+date+","+ure+","+day+","+hash+"\n";
         System.out.println(data);
@@ -226,4 +256,9 @@ public class BitcoinController implements Initializable {
 
     }
 
+    public void CheckCvs() {
+        if(!tabe_pane.getSelectionModel().isSelected(4))
+            return;
+        check_field.setText("Calculating");
+    }
 }
