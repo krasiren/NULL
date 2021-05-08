@@ -36,11 +36,10 @@ public class BitcoinController implements Initializable {
     public TextArea check_field;
     ArrayList users;
     ArrayList pay;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         getCsvData();
-
-
 
         work_break.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,120,1));
         work_end_h.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,23, 1));
@@ -91,6 +90,7 @@ public class BitcoinController implements Initializable {
             System.out.println("Error in getCsvData");
         }
     }
+
     public void CalcHours(){
         int h=0;
         int min = (-(int)work_break.getValue()+(int)work_end_min.getValue()-(int)work_start_min.getValue());
@@ -99,6 +99,7 @@ public class BitcoinController implements Initializable {
 
        work_hours.setText(String.valueOf(String.format("%.2f",display)));
     }
+
     public void displayDebt(){
         String user = paid_user.getValue().toString();
         String month = paid_m.getValue().toString();
@@ -187,6 +188,7 @@ public class BitcoinController implements Initializable {
         raise_current.setText(placa);
 
     }
+
     public void updatePay(){
         try {
             BufferedReader csv = new BufferedReader(new FileReader("./pay.csv"));
@@ -239,7 +241,6 @@ public class BitcoinController implements Initializable {
         new_pay.setText("");
         getCsvData();
     }
-
 
     public void SaveToFile(String f,String data){
         try{
