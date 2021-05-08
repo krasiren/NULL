@@ -12,8 +12,8 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("Bitcoin UV");
-        primaryStage.setScene(new Scene(root, 600, 400));
-        primaryStage.setMinWidth(600);
+        primaryStage.setScene(new Scene(root, 800, 400));
+        primaryStage.setMinWidth(800);
         primaryStage.setMinHeight(400);
         primaryStage.show();
     }

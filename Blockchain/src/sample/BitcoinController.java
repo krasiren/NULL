@@ -107,7 +107,6 @@ public class BitcoinController implements Initializable {
 
             while ((row = csv.readLine()) != null) {
                 String[] data = row.split(",");
-                System.out.println(data[1].split("-")[1]);
                 if( data[0].equals(user) && data[1].split("-")[0].equals(year) && Integer.parseInt(data[1].split("-")[1])==Integer.parseInt(month)) {
                     sum+=Float.parseFloat(data[2]);
                 }
@@ -137,7 +136,7 @@ public class BitcoinController implements Initializable {
         String user = work_user.getValue().toString();
         LocalDate date = work_date.getValue();
         String ure = work_hours.getText();
-        String hash = "";
+        String hash = BcOperations.createBlock(BcOperations.toHex(user+","+date+","+ure+","+day));
         String data = user+","+date+","+ure+","+day+","+hash+"\n";
         System.out.println(data);
         SaveToFile("timestamp.csv",data);

@@ -1,3 +1,5 @@
+package sample;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -98,6 +100,16 @@ public class BcOperations {
             if ( Character.digit(s.charAt(i), 16) == -1 )
                 return false;
         return true;
+    }
+
+    public static String toHex(String n) {
+        StringBuffer sb = new StringBuffer();
+        char ch[] = n.toCharArray();
+        for(int i = 0; i < ch.length; i++) {
+            String hexString = Integer.toHexString(ch[i]);
+            sb.append(hexString);
+        }
+        return sb.toString();
     }
 
 }
