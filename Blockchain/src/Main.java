@@ -23,4 +23,15 @@ public class Main {
         }
         System.out.println(output);
     }
+/*
+    public void createBlock (String niz) {
+        if (!(checkIfHex(niz))) return;
+        Process p;
+        StringBuffer hash = new StringBuffer();
+
+        try {
+            p = Runtime.getRuntime().exec("cd ~");
+        }
+    }
+    */
 }
