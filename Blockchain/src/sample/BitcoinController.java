@@ -1,16 +1,13 @@
 package sample;
 
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-import javax.print.DocFlavor;
 import java.io.*;
 import java.net.URL;
-import java.sql.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -68,7 +65,7 @@ public class BitcoinController implements Initializable {
         paid_m.valueProperty().addListener(observable -> displayDebt());
         paid_y.valueProperty().addListener(observable -> displayDebt());
 
-        tabe_pane.getSelectionModel().selectedIndexProperty().addListener(observable -> CheckCvs());
+        tabe_pane.getSelectionModel().selectedIndexProperty().addListener(observable -> CheckCsv());
         CalcHours();
     }
 
@@ -267,7 +264,7 @@ public class BitcoinController implements Initializable {
 
     }
 
-    public void CheckCvs() {
+    public void CheckCsv() {
         if(!tabe_pane.getSelectionModel().isSelected(4))
             return;
         try {
@@ -286,7 +283,9 @@ public class BitcoinController implements Initializable {
 
             }
             csv.close();
-        }catch(Exception e){
+        }catch (FileNotFoundException e) {
+            check_field.setText("You need to add users and their workdays to check them.");
+        }catch (IOException e) {
             System.out.println(e);
         }
     }
