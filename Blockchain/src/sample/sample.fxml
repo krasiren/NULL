@@ -83,7 +83,7 @@
             </GridPane>
          </content>
     </Tab>
-      <Tab text="Paid">
+      <Tab text="Info">
          <content>
             <GridPane hgap="20.0" vgap="10.0">
                <columnConstraints>
@@ -193,7 +193,7 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
                <children>
-                  <TextArea fx:id="check_field" disable="true" editable="false" prefHeight="200.0" prefWidth="200.0" promptText="Checking cvs..." GridPane.columnSpan="4" GridPane.rowSpan="4" />
+                  <TextArea fx:id="check_field"  disable="true" editable="false" prefHeight="200.0" prefWidth="200.0" promptText="Checking cvs..." GridPane.columnSpan="4" GridPane.rowSpan="4" />
                </children>
             </GridPane>
          </content>

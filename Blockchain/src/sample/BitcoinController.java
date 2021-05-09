@@ -4,6 +4,8 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 import javax.print.DocFlavor;
 import java.io.*;
@@ -113,7 +115,6 @@ public class BitcoinController implements Initializable {
 
             while ((row = csv.readLine()) != null) {
                 String[] data = row.split(",");
-                System.out.println(data[1].split("-")[1]);
                 if( data[0].equals(user) && data[1].split("-")[0].equals(year) && Integer.parseInt(data[1].split("-")[1])==Integer.parseInt(month)) {
                     float ure = Float.parseFloat(data[2]);
                     if (data[3].equals("free")) {
@@ -158,6 +159,7 @@ public class BitcoinController implements Initializable {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error");
                     alert.setContentText("Duplicate entry!");
+                    alert.showAndWait();
                     return;
                     }
 
@@ -260,8 +262,9 @@ public class BitcoinController implements Initializable {
     public void CheckCvs() {
         if(!tabe_pane.getSelectionModel().isSelected(4))
             return;
-        check_field.setText("Calculating\n");
         try {
+            check_field.setFont(Font.font("Calibri", FontWeight.BOLD, 18));
+            check_field.setText("");
             BufferedReader csv = new BufferedReader(new FileReader("./timestamp.csv"));
             String row;
 
