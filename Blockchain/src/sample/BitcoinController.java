@@ -238,7 +238,15 @@ public class BitcoinController implements Initializable {
     public void SaveNewUser(ActionEvent actionEvent) {
         String user = new_user.getText();
         String pay = new_pay.getText();
-        SaveToFile("pay.csv",user+","+pay+"\n");
+        if(!users.contains(user))
+            SaveToFile("pay.csv",user+","+pay+"\n");
+        else{
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("Username already exists!");
+            alert.showAndWait();
+        }
+
         new_user.setText("");
         new_pay.setText("");
         getCsvData();
